@@ -1,35 +1,16 @@
-process.stdin.setEncoding('utf-8');
-
-function calcTheTime () {
-  process.stdin.on('readable', function() {
-
-    var input = process.stdin.read();
-
-      if (input !== null) {
-        var instruction = input.toString().trim();
-            
-          if (instruction >= 60 && instruction < 3600) {
-            var minutes = instruction/60;
-            var seconds = (minutes - Math.floor(minutes)) * 60;
-
-            console.log(minutes.toFixed(0),' minutes and ', seconds.toFixed(0), ' seconds');
-
-          }else if (instruction >= 3600) {
-            var hour = instruction/3600;
-            var minutes = (hour - Math.floor(hour)) * 60;
-            var seconds = (minutes - Math.floor(minutes)) * 60;
-
-            console.log(hour.toFixed(0),' hours and ', Math.floor(minutes), ' minutes and ', seconds.toFixed(0), ' seconds');
-
-          }else {
-            console.log('Wrong instruction! Write number of seconds to calculet');
-          }
-      }      
-  }
-
-)}
+var os = require('os');
+process.stdin.setEncoding('utf8');
 
 
-calcTheTime();
+function timeFormat(){
+  var uptime = os.uptime();
+  
+  var sec_num = parseInt(uptime, 10); // don't forget the second param
+  var hours   = Math.floor(sec_num / 3600);
+  var minutes = Math.floor((sec_num - (hours * 3600)) / 60);
+  var seconds = sec_num - (hours * 3600) - (minutes * 60);
+	console.log('Uptime: ' + hours + " hours " +  minutes + " min " + seconds + " sec");
+}
 
-exports.print = calcTheTime;
+
+exports.timeFormat = timeFormat;

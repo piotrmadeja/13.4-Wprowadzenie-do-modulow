@@ -1,10 +1,8 @@
-var OSinfo = require('./modules/OSinfo')
-OSinfo.print();
-
-var timeFormat = require('./modules/timeFormat');
-timeFormat.print();
-
 process.stdin.setEncoding('utf-8');
+
+var OSinfo = require('./modules/OSinfo')
+var time = require('./modules/timeFormat');
+
 process.stdin.on('readable', function() {
   var input = process.stdin.read();
   if(input !== null) {
@@ -18,7 +16,8 @@ process.stdin.on('readable', function() {
         process.stdout.write('hello!\n');
         break;
       case '/getOSinfo':
-        getOSinfo();
+        OSinfo.print();
+        time.timeFormat();
         break;
       default:
         process.stderr.write('Wrong instruction!\n');
